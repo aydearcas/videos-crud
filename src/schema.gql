@@ -12,3 +12,13 @@ type Video {
 type Query {
   findAll: [Video!]!
 }
+
+type Mutation {
+  createVideo(createVideoInput: CreateVideoInput!): Video!
+}
+
+input CreateVideoInput {
+  title: String!
+  brief: String
+  url: String!
+}
