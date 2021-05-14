@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common';
+import { Int } from '@nestjs/graphql';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CreateVideoInput } from './dto/create-video.input';
@@ -11,24 +12,24 @@ export class VideosService {
     @InjectRepository(Video) private videosRepository: Repository<Video>,
   ) {}
 
-  async create(createVideoInput: CreateVideoInput): Promise<Video> {
+  async createVideo(createVideoInput: CreateVideoInput): Promise<Video> {
     const newVideo = this.videosRepository.create(createVideoInput); // newVideo = new Video(); newVideo.title = 'whatever title'
     return this.videosRepository.save(newVideo); // insert
   }
 
-  async findAll(): Promise<Video[]> {
+  async findAllVideos(): Promise<Video[]> {
     return this.videosRepository.find(); // SELECT * video
   }
 
-  /*findOne(id: number) {
-    return `This action returns a #${id} video`;
+  async findOneVideo(id: number): Promise<Video> {
+    return this.videosRepository.findOne(id);
   }
 
-  update(id: number, updateVideoInput: UpdateVideoInput) {
-    return `This action updates a #${id} video`;
+  async updateVideo(id: number, updateVideoInput: UpdateVideoInput) {
+    return this.videosRepository.update(id, updateVideoInput);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} video`;
-  }*/
+  async deleteVideo(id: number) {
+    return this.videosRepository.delete(id);
+  }
 }

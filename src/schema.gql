@@ -11,14 +11,24 @@ type Video {
 
 type Query {
   findAll: [Video!]!
+  findOne(id: Int!): Video!
 }
 
 type Mutation {
-  createVideo(createVideoInput: CreateVideoInput!): Video!
+  create(createVideoInput: CreateVideoInput!): Video!
+  update(updateVideoInput: UpdateVideoInput!, id: Int!): Video!
+  delete(id: Int!): Video!
 }
 
 input CreateVideoInput {
   title: String!
   brief: String
   url: String!
+}
+
+input UpdateVideoInput {
+  title: String!
+  brief: String
+  url: String!
+  id: Int!
 }
